@@ -11,12 +11,12 @@ public class MemberBean {
 		this.id = id;
 	}
 
-	public String getPassword() {
+	public String getPasswd() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswd(String passwd) {
+		this.password = passwd;
 	}
 
 	public String getName() {

@@ -14,28 +14,26 @@ public class MemberMgr {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private DataSource ds;
-	
+	int index = 1;
 	public MemberMgr() {
 		try {
 			Context context = new InitialContext();
-			ds = (DataSource)context.lookup("java:comp/env/jdbc_maria");
+			ds = (DataSource) context.lookup("java:comp/env/jdbc_maria");
 		} catch (Exception e) {
 			System.out.println("MemberMgr err : " + e);
 		}
 	}
-	
-	
-	
-	//우편번호검색
-	public ArrayList<ZipcodeBean> zipcodeRead(String area3){
+
+	// 우편번호검색
+	public ArrayList<ZipcodeBean> zipcodeRead(String area3) {
 		ArrayList<ZipcodeBean> list = new ArrayList<ZipcodeBean>();
 		try {
 			conn = ds.getConnection();
 			String sql = "select * from ziptab where area3 like ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  area3 + "%");
+			pstmt.setString(1, area3 + "%");
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				ZipcodeBean bean = new ZipcodeBean();
 				bean.setZipcode(rs.getString("zipcode"));
 				bean.setArea1(rs.getString("area1"));
@@ -48,14 +46,103 @@ public class MemberMgr {
 			System.out.println("zipcodeBean err : " + e);
 		} finally {
 			try {
-				if(rs !=null) rs.close();
-				if(pstmt !=null) pstmt.close();
-				if(conn !=null) conn.close();
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
 			} catch (Exception e2) {
 				System.out.println("err");
 			}
 		}
-		
+
 		return list;
+	}
+
+	public boolean chkId(String id) { // idcheck에있는 chkId
+		boolean b = false;
+		try {
+			conn = ds.getConnection();
+			String sql = "select id from member where id=? ";
+			// String sql = "select count(*) from member where id=? "
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			b = rs.next();
+		} catch (Exception e) {
+			System.out.println("chkId err :" + e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				System.out.println("err");
+			}
+		}
+		return b;
+	}
+	
+	public boolean memberInsert(MemberBean bean) {
+		boolean b = false;
+		try {
+			conn = ds.getConnection();
+			String sql = "insert into member values(?,?,?,?,?,?,?,?) ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bean.getId());
+			pstmt.setString(2, bean.getPasswd());
+			pstmt.setString(3, bean.getName());
+			pstmt.setString(4, bean.getEmail());
+			pstmt.setString(5, bean.getPhone());
+			pstmt.setString(6, bean.getZipcode());
+			pstmt.setString(7, bean.getAddress());
+			pstmt.setString(8, bean.getJob());
+			if(pstmt.executeUpdate() > 0 ) b=true;
+		} catch (Exception e) {
+			System.out.println("memberInsert err :" + e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				
+			}
+	}
+		return b;
+  }
+	
+	public boolean loginChk(String id, String passwd) {
+		boolean b = false;
+		try {
+			conn = ds.getConnection();
+			String sql = "select * from member where id=? and passwd=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, passwd);
+			rs = pstmt.executeQuery();
+			b = rs.next();
+		} catch (Exception e) {
+			System.out.println("loginChk err :" + e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				
+			}
+		}
+		return b;
 	}
 }

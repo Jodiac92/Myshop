@@ -21,7 +21,7 @@ window.onload = function(){
 
 	document.getElementById("btnId").onclick = idCheck;
 
-	document.getElementById("btnSubmit").onclick = inputCheck;
+	document.getElementById("btnSubmit").onclick = inputCheck; //->js로넘어감
 
 }
 
