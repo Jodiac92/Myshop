@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>쇼핑몰</title>
-<link href="../css/style.css" rel="stylesheet" type="text/css" ></link>
-<script type="text/javascript" src="../js/script.js"></script>
+<link href="../css/style.css" rel="stylesheet" type="text/css" ></link> <!-- style.css스타일참조 -->
+<script type="text/javascript" src="../js/script.js"></script> <!-- script.js동작참조 -->
 </head>
 <body style="top:20px">
 <table style="width: 90px">

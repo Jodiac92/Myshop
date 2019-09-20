@@ -1,6 +1,6 @@
 package shop.member;
 
-public class MemberBean { //FormBean
+public class MemberDto { //DTO=서버->클라이언트, Bean=클라이언트 -> 서버
 	private String id, password, name, email, phone, zipcode, address, job;
 
 	public String getId() {

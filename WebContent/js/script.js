@@ -1,4 +1,4 @@
-function zipCheck(){
+function zipCheck(){ //스크립트 모아 놓는 곳
 	//alert('zip');
 	url = "zipcheck.jsp?check=y"; //zipcheck.jsp가 불러옴
 	window.open(url, "post", "toolbar=no,width=350,height=300,top=200,left=300,status=yes,scrollbars=yes,menubar=no");
@@ -63,3 +63,70 @@ function inputCheck(){
 	regForm.submit();
 			
 }
+	//로그인 후 개인 정보 수정 (memberupdate에서 넘어옴)
+	function memberUpdate(){
+		//alert('a');
+		//입력자료 검사 생략...
+		document.updateform.submit();
+	}
+	function memberUpdateCancel(){
+		//alert('b');
+		//history.back();
+		location.href="../guest/guest_index.jsp";
+	}
+	function memberDelete(){
+		alert('회원탈퇴');
+	}
+	
+//관리자가 회원수정
+function memUpdate(id){
+	//alert('id');
+	document.updateFrm.id.value = id;
+	document.updateFrm.submit();
+}
+
+function memberUpdateAdmin(){
+	//alert('a');
+	document.updateformAdmin.submit();
+}
+function memberUpdateCancelAdmin(){
+	//alert('b');
+	location.href="membermanager.jsp";
+}
+
+//관리자가 상품처리
+function productDetail(no){
+	//alert(no);
+	document.detailFrm.no.value = no;
+	document.detailFrm.submit();
+}
+
+
+function productUpdate(no){
+	//alert(no);
+	document.updateFrm.no.value = no;
+	document.updateFrm.submit();
+}
+function productDelete(no){
+	//alert(no);
+	if(confirm("정말 삭제하시겠습니까")){
+	document.delFrm.no.value = no;
+	document.delFrm.submit();
+	}
+}
+
+//Cart 처리
+function cartUpdate(form){
+	form.flag.value = "update";
+	form.submit();
+}
+function cartDelete(form){
+	form.flag.value = "del";
+	form.submit();
+}
+
+
+
+
+
+
